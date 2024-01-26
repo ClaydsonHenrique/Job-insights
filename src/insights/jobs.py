@@ -6,7 +6,7 @@ class ProcessJobs:
         self.jobs_list = list()
 
     def read(self, path: str) -> List[Dict]:
-        with open(path, newline='', encoding='utf-8') as readefile:
+        with open(path,  encoding='utf-8') as readefile:
             reader = csv.DictReader(readefile)
             self.jobs_list = list(reader)
         return self.jobs_list

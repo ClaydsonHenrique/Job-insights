@@ -18,22 +18,14 @@ class ProcessJobs:
         )
         return list(unique_job_types)
 
-    def filter_by_multiple_criteria(self, criteria: Dict) -> List[dict]:
-        filter_job = []
-        for job in self.jobs_list:
+    def filter_by_multiple_criteria(
+        self, jobs: List[Dict], criteria: Dict
+    ) -> List[dict]:
+        if not isinstance(criteria, dict):
+            raise TypeError("O filtro deve ser um dicionário")
+
+        filtered_jobs = []
+        for job in jobs:
             if all(job.get(key) == value for key, value in criteria.items()):
-                filter_job.append(job)
-        return filter_job
-
-
-# if __name__ == "__main__":
-#     process_jobs = ProcessJobs()
-#     process_jobs.read("src/insights/jobs.py")
-
-#     unique_types = process_jobs.get_unique_job_types()
-#     print("Tipos únicos de trabalhos:", unique_types)
-
-#     filter = {'job_type': 'Full-time',
-#                           'location': 'Remote'}
-#     filtered_jobs = process_jobs.filter_by_multiple_criteria(filter)
-#     print("Trabalhos filtrados:", filtered_jobs)
+                filtered_jobs.append(job)
+        return filtered_jobs
